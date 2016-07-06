@@ -46,8 +46,8 @@ angular.module('starter.services', [])
       }
       return null;
     },
-    add: function() {
-      chats.push({"id": 5, "name": "IT WORKS", "lastText": "You've done it!", "face": 'img/mike.png'});
+    add: function(name, lastText) {
+      chats.push({"id": 5, "name": name, "lastText": lastText, "face": 'img/mike.png'});
     }
   };
 });

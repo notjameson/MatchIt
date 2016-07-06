@@ -10,8 +10,8 @@ angular.module('starter.controllers', [])
   $scope.remove = function(chat) {
     Chats.remove(chat);
   };
-  $scope.add = function() {
-    Chats.add();
+  $scope.add = function(name, lastText) {
+    Chats.add(name, lastText);
   }
 })
 
