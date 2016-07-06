@@ -45,6 +45,9 @@ angular.module('starter.services', [])
         }
       }
       return null;
+    },
+    add: function() {
+      chats.push({"id": 5, "name": "IT WORKS", "lastText": "You've done it!", "face": 'img/mike.png'});
     }
   };
 });
