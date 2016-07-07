@@ -11,21 +11,6 @@ angular.module('starter.services', [])
     face: 'img/ben.png'
   }, {
     id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
     name: 'Mike Harrington',
     lastText: 'This is wicked good ice cream.',
     face: 'img/mike.png'
@@ -47,7 +32,7 @@ angular.module('starter.services', [])
       return null;
     },
     add: function(name, lastText) {
-      chats.push({"id": 5, "name": name, "lastText": lastText, "face": 'img/mike.png'});
+      chats.push({"id": chats.length + 1, "name": name, "lastText": lastText, "face": 'img/mike.png'});
     }
   };
 });

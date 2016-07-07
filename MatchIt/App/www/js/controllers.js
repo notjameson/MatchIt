@@ -2,7 +2,12 @@
 
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('DashCtrl', function($scope, Chats) {
+  $scope.chats = Chats.all();
+  $scope.add = function(name, lastText) {
+    Chats.add(name, lastText);
+  }
+})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   
@@ -10,9 +15,10 @@ angular.module('starter.controllers', [])
   $scope.remove = function(chat) {
     Chats.remove(chat);
   };
-  $scope.add = function(name, lastText) {
-    Chats.add(name, lastText);
-  }
+
+  // Adds new item
+  // TODO:  NEED TO CHANGE VARIABLE NAMING
+  
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
