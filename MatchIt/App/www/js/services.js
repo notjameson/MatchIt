@@ -6,14 +6,14 @@ angular.module('starter.services', [])
   // Some fake testing data
   var chats = [{
     id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
+    name: 'Short-sleeved shirt',
+    lastText: 'Gap',
+    face: 'img/Shirt1.jpg'
   }, {
     id: 1,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
+    name: 'Chinos',
+    lastText: 'Gap',
+    face: 'img/Pants1.jpg'
   }];
 
   return {
@@ -32,7 +32,7 @@ angular.module('starter.services', [])
       return null;
     },
     add: function(name, lastText) {
-      chats.push({"id": chats.length + 1, "name": name, "lastText": lastText, "face": 'img/mike.png'});
+      chats.push({"id": chats.length + 1, "name": name, "lastText": lastText, "face": 'img/Shirt2.jpg'});
     }
   };
 });

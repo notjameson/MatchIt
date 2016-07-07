@@ -8,9 +8,11 @@ angular.module('starter.controllers', [])
     Chats.add(name, lastText);
   }
 
-  $scope.upload = function(path) {
-
+  $scope.goTo = function(path) {
+      $location.path(path);
   }
+
+
 })
 
 .controller('UploadCtrl', function($scope, $stateParams, Chats) {
