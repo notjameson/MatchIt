@@ -13,6 +13,9 @@ angular.module('starter.controllers', [])
   }
 })
 
+.controller('UploadCtrl', function($scope, $stateParams, Chats) {
+
+})
 .controller('ChatsCtrl', function($scope, Chats) {
   
   $scope.chats = Chats.all();
