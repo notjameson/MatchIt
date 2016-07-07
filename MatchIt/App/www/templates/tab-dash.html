@@ -1,9 +1,18 @@
 <ion-view view-title="Wardrobe">
+<ion-nav-buttons side="primary">
+      <button class="button icon ion-search" ng-click="toggleLeft()">
+      </button>
+</ion-nav-buttons>
+<ion-nav-buttons side="secondary">
+      <button class="button icon ion-plus" ng-click="doSomething()">
+      </button>
+</ion-nav-buttons>
   <ion-content class="padding">
     <form ng-submit="add(name, lastText)">
       <form ng-submit="add(name, lastText)">
       <input type="text" placeholder="Name?" ng-model="name">
       <input type="text" placeholder="What else?" ng-model="lastText">
+      <!-- <input type="file" name="fileToUpload" id="fileToUpload"> -->
       <button type="submit" class="button button-block button-positive">
       Add
       </button>

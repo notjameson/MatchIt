@@ -7,6 +7,10 @@ angular.module('starter.controllers', [])
   $scope.add = function(name, lastText) {
     Chats.add(name, lastText);
   }
+
+  $scope.upload = function(path) {
+
+  }
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {
