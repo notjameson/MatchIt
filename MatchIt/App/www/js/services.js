@@ -1,19 +1,17 @@
 angular.module('starter.services', [])
 
 .factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
+  
   var chats = [{
     id: 0,
-    name: 'Short-sleeved shirt',
-    lastText: 'Gap',
-    face: 'img/Shirt1.jpg'
+    type: 'Short-sleeved shirt',
+    brand: 'Gap',
+    itemImage: 'img/Shirt1.jpg'
   }, {
     id: 1,
-    name: 'Chinos',
-    lastText: 'Gap',
-    face: 'img/Pants1.jpg'
+    type: 'Chinos',
+    brand: 'Gap',
+    itemImage: 'img/Pants1.jpg'
   }];
 
   return {
@@ -31,8 +29,8 @@ angular.module('starter.services', [])
       }
       return null;
     },
-    add: function(name, lastText) {
-      chats.push({"id": chats.length + 1, "name": name, "lastText": lastText, "face": 'img/Shirt2.jpg'});
-    }
+    add: function(type, brand) {
+      chats.push({"id": chats.length + 1, "type": type, "brand": brand, "itemImage": 'img/Shirt2.jpg'});
+    },
   };
 });
