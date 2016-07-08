@@ -1,17 +1,20 @@
 angular.module('starter.services', [])
 
 .factory('Chats', function() {
-  
+
   var chats = [{
     id: 0,
     type: 'Short-sleeved shirt',
     brand: 'Gap',
-    itemImage: 'img/Shirt1.jpg'
+    itemImage: 'img/Shirt1.jpg',
+    color: '#123456'
   }, {
     id: 1,
     type: 'Chinos',
     brand: 'Gap',
-    itemImage: 'img/Pants1.jpg'
+    itemImage: 'img/Pants1.jpg',
+    size: 'S',
+    color: '#123456'
   }];
 
   return {
@@ -32,5 +35,8 @@ angular.module('starter.services', [])
     add: function(type, brand) {
       chats.push({"id": chats.length + 1, "type": type, "brand": brand, "itemImage": 'img/Shirt2.jpg'});
     },
+    getColor: function(index) {
+      return chats[i].color;
+    }
   };
 });
