@@ -4,12 +4,24 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
-  $scope.add = function(name, lastText) {
-    Chats.add(name, lastText);
+  $scope.add = function(type, brand, address) {
+    Chats.add(type, brand, address);
   }
 
   $scope.goTo = function(path) {
       $location.path(path);
+  }
+
+  $scope.addNext = function(type) {
+    //var input = $.trim($("#clothName").val());
+
+    //if (type.length > 0) {
+    //jQuery('#text').fadeIn();
+    //}
+
+    var myEl = angular.element( document.querySelector( '#next' ) );
+    myEl.addClass('animate fadeInDown');
+    myEl.removeAttr('display: none');
   }
 
 

@@ -32,8 +32,8 @@ angular.module('starter.services', [])
       }
       return null;
     },
-    add: function(type, brand) {
-      chats.push({"id": chats.length + 1, "type": type, "brand": brand, "itemImage": 'img/Shirt2.jpg'});
+    add: function(type, brand, address) {
+      chats.push({"id": chats.length + 1, "type": type, "brand": brand, "itemImage": address});
     },
     getColor: function(index) {
       return chats[i].color;
