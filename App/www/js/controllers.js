@@ -30,13 +30,15 @@ angular.module('starter.controllers', [])
 .controller('UploadCtrl', function($scope, $stateParams, Chats) {
 
 })
-.controller('ChatsCtrl', function($scope, Chats) {
+.controller('ChatsCtrl', function($scope, Chats, $http) {
   
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
     Chats.remove(chat);
   };
-
+  $scope.request = function(url) {
+    
+  };
   // Adds new item
   // TODO:  NEED TO CHANGE VARIABLE NAMING
   

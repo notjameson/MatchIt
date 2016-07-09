@@ -1,4 +1,7 @@
 <?php 
+$request_arr = json_decode( file_get_contents('php://input') );
+$angular_var = $request_arr->angular_var;
+
 $target = '../img/';
 $target = $target . basename( $_FILES['fileToUpload']['name']);
 $ok=1;  
