@@ -47,6 +47,10 @@ class color(models.Model):
 	# returns the foreign keys of the specific color.
 	pieces = models.ManyToManyField(Piece)
 
+	
+	colourLoverField = models.ManyToManyField(colourLovers)
+	kulerField = models.ManyToManyField(kuler)
+
 	color = models.CharField(max_length=50)
 	name = models.CharField(max_length=50)
 
