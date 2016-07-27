@@ -2,10 +2,13 @@
 
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, Chats) {
+.controller('DashCtrl', function($scope, Chats, $http) {
   $scope.chats = Chats.all();
   $scope.add = function(type, brand, address) {
-    Chats.add(type, brand, address);
+    $http.get('http://localhost/upload.php')
+       .then(function(res){
+        console.log(res.data);        
+    });
   }
 
   $scope.goTo = function(path) {
