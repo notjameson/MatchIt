@@ -11,8 +11,13 @@ angular.module('starter.controllers', [])
     $http.get('http://localhost/upload.php')
        .then(function(res){
         // If successful, for right now logs it to console, but WILL 
-        // add the object alter
-        console.log(res.data);        
+        // add the object later
+        //console.log(res.data);  
+        console.log(res);
+        console.log(res.data.cl_themes[0].id);
+        console.log(res.data.info.url);
+        
+        Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url);
     });
   }
 
