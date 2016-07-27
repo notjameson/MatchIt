@@ -4,9 +4,14 @@ angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope, Chats, $http) {
   $scope.chats = Chats.all();
+
+  // Add function, adds a new article of clothing
   $scope.add = function(type, brand, address) {
+  // GET request that links to PHP
     $http.get('http://localhost/upload.php')
        .then(function(res){
+        // If successful, for right now logs it to console, but WILL 
+        // add the object alter
         console.log(res.data);        
     });
   }
@@ -16,11 +21,6 @@ angular.module('starter.controllers', [])
   }
 
   $scope.addNext = function(type) {
-    //var input = $.trim($("#clothName").val());
-
-    //if (type.length > 0) {
-    //jQuery('#text').fadeIn();
-    //}
 
     var myEl = angular.element( document.querySelector( '#next' ) );
     myEl.addClass('animate fadeInDown');
