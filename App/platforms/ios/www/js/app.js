@@ -45,6 +45,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
+  .state('tab.upload', {
+    url: '/upload',
+    views: {
+      'tab-upload': {
+        templateUrl: 'templates/tab-upload.html',
+        controller: 'UploadCtrl'
+      }
+    }
+  })
+
   .state('tab.chats', {
       url: '/chats',
       views: {

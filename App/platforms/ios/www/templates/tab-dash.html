@@ -1,13 +1,27 @@
 <ion-view view-title="Wardrobe">
+<ion-nav-buttons side="primary">
+      <button class="button icon ion-search" ng-click="toggleLeft()">
+      </button>
+</ion-nav-buttons>
+<ion-nav-buttons side="secondary">
+      <button class="button icon ion-plus">
+      <a href="/tab/upload"></a>
+      </button>
+</ion-nav-buttons>
   <ion-content class="padding">
-    <form ng-submit="add(name, lastText)">
-      <form ng-submit="add(name, lastText)">
-      <input type="text" placeholder="Name?" ng-model="name">
-      <input type="text" placeholder="What else?" ng-model="lastText">
+    <form ng-submit="add(type, brand, address)">
+      <input type="text" placeholder="What article of clothing?" ng-model="type" id="clothName">
+
+      <!--<div id="next" style="display: none">-->
+      <input type="text" placeholder="What brand?" ng-model="brand">
+      <input type="text" placeholder="URL?" ng-model="address">
       <!-- <input type="file" name="fileToUpload" id="fileToUpload"> -->
       <button type="submit" class="button button-block button-positive">
       Add
       </button>
-      </form>
+      <!--</div>-->
+
+      
+</form>
   </ion-content>
 </ion-view>
