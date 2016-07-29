@@ -1,21 +1,27 @@
 <ion-view view-title="Wardrobe">
+  <ion-nav-buttons side="primary">
+        <button class="button icon ion-search">
+        </button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="secondary">
+        <button class="button icon ion-plus" ng-click="showPopup()">
+        <a href="/tab/upload"></a>
+        </button>
+  </ion-nav-buttons>
   <ion-content>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
         <img ng-src="{{chat.itemImage}}">
         <h2>{{chat.type}}</h2>
         <p>{{chat.brand}}</p>
-        <button style="color:blue;"></button>
+
         <i class="icon ion-chevron-right icon-accessory"></i>
 
         <ion-option-button class="button-assertive" ng-click="remove(chat)">
           Delete
         </ion-option-button>
       </ion-item>
-      <button type="submit" class="button button-block button-positive" ng-click="request('http://image.rakuten.co.jp/baby-nanar/cabinet/00659459/img56912830.jpg')">
-      Add
-      </button>
-      </form>
+      
     </ion-list>
   </ion-content>
 </ion-view>
