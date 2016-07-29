@@ -10,5 +10,9 @@
     <p>
       {{chat.brand}}
     </p>
+    <ion-item ng-repeat="color in colors">
+    <div class="box" style="background-color:{{color}};"></div>
+    {{color}}
+  </ion-item>
   </ion-content>
 </ion-view>

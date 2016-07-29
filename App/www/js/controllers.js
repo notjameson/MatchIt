@@ -8,16 +8,15 @@ angular.module('starter.controllers', [])
   // Add function, adds a new article of clothing
   $scope.add = function(type, brand, address) {
   // GET request that links to PHP
+  // TODO: Get this running with Ionic Serve
     $http.get('http://localhost/upload.php')
        .then(function(res){
         // If successful, for right now logs it to console, but WILL 
         // add the object later
         //console.log(res.data);  
-        console.log(res);
-        console.log(res.data.cl_themes[0].id);
-        console.log(res.data.info.url);
+        //console.log(res.data.info.colors);
         
-        Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url);
+        Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url, res.data.info.colors);
     });
   }
 
@@ -54,6 +53,7 @@ angular.module('starter.controllers', [])
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
+  $scope.colors = Chats.allColors($stateParams.chatId);
 })
 
 .controller('AccountCtrl', function($scope) {
