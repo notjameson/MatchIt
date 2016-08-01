@@ -49,15 +49,16 @@ angular.module('starter.controllers', [])
 
   // Add function, adds a new article of clothing
   $scope.add = function(type, brand, address) {
+    $scope.address = "http://i.imgur.com/31Epqfc.jpg";
   // GET request that links to PHP
   // TODO: Get this running with Ionic Serve
-    $http.get('http://localhost/upload.php')
+    $http.post('http://localhost/upload.php', $scope.address)
        .then(function(res){
         // If successful, for right now logs it to console, but WILL 
         // add the object later
         //console.log(res.data);  
         //console.log(res.data.info.colors);
-        
+        console.log(res.data);
         Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url, res.data.info.colors);
     });
   };
