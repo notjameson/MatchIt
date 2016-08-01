@@ -37,7 +37,7 @@ angular.module('starter.controllers', [])
 .controller('UploadCtrl', function($scope, $stateParams, Chats) {
 
 })
-.controller('ChatsCtrl', function($scope, Chats, $http, $ionicPopup) {
+.controller('ChatsCtrl', function($scope, Chats, $http, $ionicPopup, $location) {
   
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
@@ -66,7 +66,7 @@ angular.module('starter.controllers', [])
     
       // Custom popup
       var myPopup = $ionicPopup.show({
-         templateUrl: '../www/templates/form.html',
+         templateUrl: '/templates/form.html',
          title: 'Title',
          subTitle: 'Subtitle',
          scope: $scope,
