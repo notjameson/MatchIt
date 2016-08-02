@@ -5,20 +5,6 @@ angular.module('starter.controllers', [])
 .controller('DashCtrl', function($scope, Chats, $http) {
   $scope.chats = Chats.all();
 
-  // Add function, adds a new article of clothing
-  $scope.add = function(type, brand, address) {
-  // GET request that links to PHP
-  // TODO: Get this running with Ionic Serve
-    $http.get('http://localhost/upload.php')
-       .then(function(res){
-        // If successful, for right now logs it to console, but WILL 
-        // add the object later
-        //console.log(res.data);  
-        //console.log(res.data.info.colors);
-        
-        Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url, res.data.info.colors);
-    });
-  }
 
   $scope.goTo = function(path) {
       $location.path(path);
@@ -51,12 +37,12 @@ angular.module('starter.controllers', [])
   $scope.add = function(type, brand, address) {
     $scope.address = "http://i.imgur.com/31Epqfc.jpg";
   // POST request that links to PHP
-  // TODO: Get this running with Ionic Serve
     $http.post('http://localhost/upload.php', $scope.address)
        .then(function(res){
         
-        console.log(res.data);
-        Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url, res.data.info.colors);
+        
+        console.log(res.data.kuler_themes[0].colors);
+        Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url, res.data.info.colors, res.data.kuler_themes[0].colors);
     });
   };
 

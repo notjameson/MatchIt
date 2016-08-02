@@ -8,7 +8,8 @@ angular.module('starter.services', [])
     brand: 'Gap',
     itemImage: 'img/Shirt1.jpg',
     color: '#FFFFFF',
-    colors: ["#ffff00", "#555555"]
+    colors: ["#ffff00", "#555555"],
+    kulerArray: []
   }, {
     id: 1,
     type: 'Chinos',
@@ -16,7 +17,8 @@ angular.module('starter.services', [])
     itemImage: 'img/Pants1.jpg',
     size: 'S',
     color: '#000000',
-    colors: ["#123321", "#122221"]
+    colors: ["#123321", "#122221"],
+    kulerArray: []
   }];
 
   return {
@@ -34,16 +36,21 @@ angular.module('starter.services', [])
       }
       return null;
     },
-    add: function(type, brand, address, colorArray) {
+    add: function(type, brand, address, colorArray, kulerArray) {
       // Here we make sure the array will pass values suitable for hex coding
       for (var i = 0; i < colorArray.length; i++) {
         if (colorArray[i].charAt(0) != "#") {
           colorArray[i] = "#" + colorArray[i];
         }
       }
+
+      for (var i = 0; i < kulerArray.length; i++) {
+        if (kulerArray[i].charAt(0) != "#") {
+          kulerArray[i] = "#" + kulerArray[i];
+        }
+      }
       chats.push({"id": chats.length + 1, "type": type, "brand": brand, "itemImage": 
-        address, "color": "ffff00", "colors": colorArray});
-        console.log(Array.isArray(colorArray));
+        address, "color": "ffff00", "colors": colorArray, "kulerArray": kulerArray});
     },
     allColors: function(chatId) {
       for (var i = 0; i < chats.length; i++) {
