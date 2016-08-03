@@ -1,19 +1,24 @@
 angular.module('starter.services', [])
 
 .factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
 
-  // Some fake testing data
   var chats = [{
     id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
+    type: 'Short-sleeved shirt',
+    brand: 'Gap',
+    itemImage: 'img/Shirt1.jpg',
+    color: '#FFFFFF',
+    colors: ["#ffff00", "#555555"],
+    kulerArray: []
   }, {
     id: 1,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
+    type: 'Chinos',
+    brand: 'Gap',
+    itemImage: 'img/Pants1.jpg',
+    size: 'S',
+    color: '#000000',
+    colors: ["#123321", "#122221"],
+    kulerArray: []
   }];
 
   return {
@@ -31,8 +36,35 @@ angular.module('starter.services', [])
       }
       return null;
     },
-    add: function(name, lastText) {
-      chats.push({"id": chats.length + 1, "name": name, "lastText": lastText, "face": 'img/mike.png'});
+    add: function(type, brand, address, colorArray, kulerArray) {
+      // Here we make sure the array will pass values suitable for hex coding
+      for (var i = 0; i < colorArray.length; i++) {
+        if (colorArray[i].charAt(0) != "#") {
+          colorArray[i] = "#" + colorArray[i];
+        }
+      }
+
+      for (var i = 0; i < kulerArray.length; i++) {
+        if (kulerArray[i].charAt(0) != "#") {
+          kulerArray[i] = "#" + kulerArray[i];
+        }
+      }
+      chats.push({"id": chats.length + 1, "type": type, "brand": brand, "itemImage": 
+        address, "color": "ffff00", "colors": colorArray, "kulerArray": kulerArray});
+    },
+    allColors: function(chatId) {
+      for (var i = 0; i < chats.length; i++) {
+        if (chats[i].id === parseInt(chatId)) {
+          return chats[i].colors;
+        }
+      }
+    },
+    kulerColors: function(chatId) {
+      for (var i = 0; i < chats.length; i++) {
+        if (chats[i].id === parseInt(chatId)) {
+          return chats[i].kulerArray;
+        }
+      }
     }
   };
 });

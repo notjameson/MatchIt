@@ -6,13 +6,18 @@
 -->
 <ion-view view-title="{{chat.type}}">
   <ion-content class="padding">
-    <img ng-src="{{chat.itemImage}}" style="width: 64px; height: 64px">
+    <img ng-src="{{chat.itemImage}}" style="width: 64px; height: 64px; float: left">
     <p>
       {{chat.brand}}
     </p>
-    <ion-item ng-repeat="color in colors">
+    <ion-item ng-repeat="color in colors" style="float: left">
     <div class="box" style="background-color:{{color}};"></div>
-    {{color}}
-  </ion-item>
+    Color: {{color}}
+    </ion-item>
+    <ion-item ng-repeat="kulerColor in kulerColors" style="float: left">
+    <div class="box" style="background-color:{{kulerColor}};"></div>
+    Matched: {{kulerColor}}
+    </ion-item>
+
   </ion-content>
 </ion-view>

@@ -39,10 +39,8 @@ angular.module('starter.controllers', [])
   // POST request that links to PHP
     $http.post('http://localhost/upload.php', $scope.address)
        .then(function(res){
-        
-        
-        console.log(res.data.kuler_themes[0].colors);
-        Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url, res.data.info.colors, res.data.kuler_themes[0].colors);
+        console.log(res.data);
+        Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url, res.data.info.colors, res.data.kuler_themes[1].colors);
     });
   };
 
@@ -84,6 +82,7 @@ angular.module('starter.controllers', [])
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
   $scope.chat = Chats.get($stateParams.chatId);
   $scope.colors = Chats.allColors($stateParams.chatId);
+  $scope.kulerColors = Chats.kulerColors($stateParams.chatId);
 })
 
 .controller('AccountCtrl', function($scope) {
