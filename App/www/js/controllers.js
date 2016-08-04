@@ -37,7 +37,7 @@ angular.module('starter.controllers', [])
   $scope.add = function(type, brand, address) {
     $scope.address = "http://i.imgur.com/31Epqfc.jpg";
   // POST request that links to PHP
-    $http.post('http://localhost/upload.php', $scope.address)
+    $http.post('http://jamesonzaballos.com/upload.php', $scope.address)
        .then(function(res){
         console.log(res.data);
         Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url, res.data.info.colors, res.data.kuler_themes[1].colors);
@@ -50,7 +50,7 @@ angular.module('starter.controllers', [])
     
       // Custom popup
       var myPopup = $ionicPopup.show({
-         templateUrl: '/templates/form.html',
+         templateUrl: 'templates/form.html',
          title: 'Title',
          subTitle: 'Subtitle',
          scope: $scope,
@@ -70,10 +70,6 @@ angular.module('starter.controllers', [])
                   }
             }
          ]
-      });
-
-      myPopup.then(function(res) {
-         console.log('Tapped!', res);
       });    
    };
   
