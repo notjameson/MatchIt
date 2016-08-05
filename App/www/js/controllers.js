@@ -20,7 +20,9 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('UploadCtrl', function($scope, $stateParams, Chats, $cordovaCamera, $cordovaFile) {
+.controller('UploadCtrl', function($scope, $stateParams, Chats, $cordovaCamera, $cordovaFile, $http) {
+
+  // Camera
   $scope.images = [];
  
   $scope.addImage = function() {
@@ -28,7 +30,7 @@ angular.module('starter.controllers', [])
       // 2
   var options = {
     destinationType : Camera.DestinationType.FILE_URI,
-    sourceType : Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
+    sourceType : Camera.PictureSourceType.PHOTOLIBRARY, // Camera.PictureSourceType.PHOTOLIBRARY
     allowEdit : false,
     encodingType: Camera.EncodingType.JPEG,
     popoverOptions: CameraPopoverOptions,
@@ -93,8 +95,31 @@ angular.module('starter.controllers', [])
   $scope.urlForImage = function(imageName) {
       console.log("get correct path for image");
       var name = imageName.substr(imageName.lastIndexOf('/') + 1);
-  var trueOrigin = cordova.file.dataDirectory + name;
-  return trueOrigin;
+      var trueOrigin = cordova.file.dataDirectory + name;
+      console.log("SOMETHING");
+
+      // Firebase time!
+
+      /*var imageData = imageName;
+      var blob = new Blob([imageData], {type: 'image/jpeg'});
+      var file = new File([blob], "drugs", imageName);
+      console.log("before");
+      console.log(file.filename);
+      console.log("after");*/
+
+      try {
+        $scope.address = trueOrigin;
+        // POST request that links to PHP
+        $http.post('http://jamesonzaballos.com/upload.php', $scope.address)
+         .then(function(res){
+          console.log(res.data);
+          Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url, res.data.info.colors, res.data.kuler_themes[1].colors);
+        });
+      } catch (e) {
+        console.log(e);
+        return trueOrigin;
+      };
+      return trueOrigin;
   }
 })
 .controller('ChatsCtrl', function($scope, Chats, $http, $ionicPopup, $location) {

@@ -24,6 +24,19 @@
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
     
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyDgiGEIrTmfQ-gcxY2u_1WJLJRFU55zby4",
+        authDomain: "matchit-33a82.firebaseapp.com",
+        databaseURL: "https://matchit-33a82.firebaseio.com",
+        storageBucket: "matchit-33a82.appspot.com",
+      };
+      firebase.initializeApp(config);
+    </script>
+    
   </head>
   <body ng-app="starter" class="platform-ios platform-cordova platform-webview">
     <!--
