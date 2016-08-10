@@ -31,10 +31,11 @@ angular.module('starter.controllers', [])
       // 2
   var options = {
     destinationType : Camera.DestinationType.FILE_URI,
-    sourceType : Camera.PictureSourceType.PHOTOLIBRARY, // Camera.PictureSourceType.PHOTOLIBRARY
+    sourceType : Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
     allowEdit : false,
     encodingType: Camera.EncodingType.JPEG,
     popoverOptions: CameraPopoverOptions,
+    quality: 30, // This is to allow the fastest delivery possible
   };
 
   // Authenticate
@@ -83,6 +84,13 @@ angular.module('starter.controllers', [])
                 console.log(downloadURL);
                 // when done, pass back information on the saved image
                 //_callback(uploadTask.snapshot)
+                $http.post('http://www.jamesonzaballos.com/upload.php', downloadURL)
+                   .then(function(res){
+                    console.log(res.data);
+                    Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url, res.data.info.colors, res.data.kuler_themes[1].colors);
+                }, function(msg){
+                  console.log(msg.data);
+                });
               });
             }, function (error) {
               // error
@@ -171,35 +179,7 @@ angular.module('starter.controllers', [])
   $scope.add = function(type, brand, address) {
     $scope.address = "http://i.imgur.com/31Epqfc.jpg";
 
-    // Make the file
-    var imageBase64 = $scope.address;
-    var toBlob = new Blob([imageBase64], {type: 'image/jpeg'});
-
-    // Authenticate
-    firebase.auth().signInAnonymously().catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorMessage);
-      // ...
-    });
-
-    // Firebase
-    var storageRef = firebase.storage().ref();
-    var imageRef = storageRef.child('31Epqfc.jpg');
-    var uploadTask = storageRef.child('31Epqfc.jpg').put(toBlob);
-    uploadTask.on('state_changed', function(snapshot){
-    // Observe state change events such as progress, pause, and resume
-    // See below for more detail
-    }, function(error) {
-      // Handle unsuccessful uploads
-      console.log(error);
-    }, function() {
-      // Handle successful uploads on complete
-      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-      var downloadURL = uploadTask.snapshot.downloadURL;
-      console.log(downloadURL);
-    });
+    
 
 
   // POST request that links to PHP

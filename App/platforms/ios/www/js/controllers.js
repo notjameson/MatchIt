@@ -31,20 +31,14 @@ angular.module('starter.controllers', [])
       // 2
   var options = {
     destinationType : Camera.DestinationType.FILE_URI,
-    sourceType : Camera.PictureSourceType.PHOTOLIBRARY, // Camera.PictureSourceType.PHOTOLIBRARY
+    sourceType : Camera.PictureSourceType.CAMERA, // Camera.PictureSourceType.PHOTOLIBRARY
     allowEdit : false,
     encodingType: Camera.EncodingType.JPEG,
     popoverOptions: CameraPopoverOptions,
+    quality: 30,
   };
-  
-  // 3
-  $cordovaCamera.getPicture(options).then(function(imageData) {
 
-    
-
-
-
-    // Authenticate
+  // Authenticate
       firebase.auth().signInAnonymously().catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -52,30 +46,58 @@ angular.module('starter.controllers', [])
         console.log(errorMessage);
         // ...
       });
+  
+  // 3
+  $cordovaCamera.getPicture(options).then(function(imageData) {
+    var fileName = imageData.replace(/^.*[\\\/]/, '');
+    console.log(fileName);
+    var path = cordova.file.tempDirectory;
+    console.log(path);
 
-      // Firebase
-      // make file object to upload
-      var dat = "metadata";
-      var blobToAdd = new Blob([dat], {type: 'image/jpeg'});
-      
-      var fileToAdd = new File([blobToAdd], imageData);
-      console.log(fileToAdd);
-      var storageRef = firebase.storage().ref();
-      var uploadTask = storageRef.child(fileToAdd).put(fileToAdd);
-      uploadTask.on('state_changed', function(snapshot){
-      // Observe state change events such as progress, pause, and resume
-      // See below for more detail
 
-      }, function(error) {
-        // Handle unsuccessful uploads
 
-        console.error(error);
-      }, function() {
-        // Handle successful uploads on complete
-        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-        var downloadURL = uploadTask.snapshot.downloadURL;
-        console.log(downloadURL);
-      });
+    $cordovaFile.readAsArrayBuffer(path, fileName)
+            .then(function (success) {
+              // success - get blob data
+              var imageBlob = new Blob([success], { type: "image/jpeg" });
+
+              // Create a root reference to the firebase storage
+              var storageRef = firebase.storage().ref();
+
+              // pass in the _filename, and save the _imageBlob
+              var uploadTask = storageRef.child('images/' + fileName).put(imageBlob);
+
+              // Register three observers:
+              // 1. 'state_changed' observer, called any time the state changes
+              // 2. Error observer, called on failure
+              // 3. Completion observer, called on successful completion
+              uploadTask.on('state_changed', function (snapshot) {
+                // Observe state change events such as progress, pause, and resume
+                // See below for more detail
+              }, function (error) {
+                // Handle unsuccessful uploads, alert with error message
+                alert(error.message)
+                _callback(null)
+              }, function () {
+                // Handle successful uploads on complete
+                var downloadURL = uploadTask.snapshot.downloadURL;
+                console.log(downloadURL);
+                // when done, pass back information on the saved image
+                //_callback(uploadTask.snapshot)
+                $http.post('http://www.jamesonzaballos.com/upload.php', downloadURL)
+                   .then(function(res){
+                    console.log(res.data);
+                    Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url, res.data.info.colors, res.data.kuler_themes[1].colors);
+                }, function(msg){
+                  console.log(msg.data);
+                });
+              });
+            }, function (error) {
+              // error
+              console.log(error)
+            });
+
+    
 
 
 
@@ -157,35 +179,7 @@ angular.module('starter.controllers', [])
   $scope.add = function(type, brand, address) {
     $scope.address = "http://i.imgur.com/31Epqfc.jpg";
 
-    // Make the file
-    var imageBase64 = $scope.address;
-    var toBlob = new Blob([imageBase64], {type: 'image/jpeg'});
-
-    // Authenticate
-    firebase.auth().signInAnonymously().catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorMessage);
-      // ...
-    });
-
-    // Firebase
-    var storageRef = firebase.storage().ref();
-    var imageRef = storageRef.child('31Epqfc.jpg');
-    var uploadTask = storageRef.child('31Epqfc.jpg').put(toBlob);
-    uploadTask.on('state_changed', function(snapshot){
-    // Observe state change events such as progress, pause, and resume
-    // See below for more detail
-    }, function(error) {
-      // Handle unsuccessful uploads
-      console.log(error);
-    }, function() {
-      // Handle successful uploads on complete
-      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-      var downloadURL = uploadTask.snapshot.downloadURL;
-      console.log(downloadURL);
-    });
+    
 
 
   // POST request that links to PHP
