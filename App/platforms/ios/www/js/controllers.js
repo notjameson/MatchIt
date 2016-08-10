@@ -23,6 +23,7 @@ angular.module('starter.controllers', [])
 .controller('UploadCtrl', function($scope, $stateParams, Chats, $cordovaCamera, $cordovaFile, $http) {
 
   // Camera
+  // where we store the images
   $scope.images = [];
  
   $scope.addImage = function() {
@@ -38,11 +39,53 @@ angular.module('starter.controllers', [])
   
   // 3
   $cordovaCamera.getPicture(options).then(function(imageData) {
- 
+
+    
+
+
+
+    // Authenticate
+      firebase.auth().signInAnonymously().catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(errorMessage);
+        // ...
+      });
+
+      // Firebase
+      // make file object to upload
+      var dat = "metadata";
+      var blobToAdd = new Blob([dat], {type: 'image/jpeg'});
+      
+      var fileToAdd = new File([blobToAdd], imageData);
+      console.log(fileToAdd);
+      var storageRef = firebase.storage().ref();
+      var uploadTask = storageRef.child(fileToAdd).put(fileToAdd);
+      uploadTask.on('state_changed', function(snapshot){
+      // Observe state change events such as progress, pause, and resume
+      // See below for more detail
+
+      }, function(error) {
+        // Handle unsuccessful uploads
+
+        console.error(error);
+      }, function() {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        var downloadURL = uploadTask.snapshot.downloadURL;
+        console.log(downloadURL);
+      });
+
+
+
+
+
     // 4
     onImageSuccess(imageData);
  
     function onImageSuccess(fileURI) {
+      console.log(fileURI);
       createFileEntry(fileURI);
     }
  
@@ -96,29 +139,7 @@ angular.module('starter.controllers', [])
       console.log("get correct path for image");
       var name = imageName.substr(imageName.lastIndexOf('/') + 1);
       var trueOrigin = cordova.file.dataDirectory + name;
-      console.log("SOMETHING");
 
-      // Firebase time!
-
-      /*var imageData = imageName;
-      var blob = new Blob([imageData], {type: 'image/jpeg'});
-      var file = new File([blob], "drugs", imageName);
-      console.log("before");
-      console.log(file.filename);
-      console.log("after");*/
-
-      try {
-        $scope.address = trueOrigin;
-        // POST request that links to PHP
-        $http.post('http://jamesonzaballos.com/upload.php', $scope.address)
-         .then(function(res){
-          console.log(res.data);
-          Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url, res.data.info.colors, res.data.kuler_themes[1].colors);
-        });
-      } catch (e) {
-        console.log(e);
-        return trueOrigin;
-      };
       return trueOrigin;
   }
 })
@@ -135,11 +156,45 @@ angular.module('starter.controllers', [])
   // Add function, adds a new article of clothing
   $scope.add = function(type, brand, address) {
     $scope.address = "http://i.imgur.com/31Epqfc.jpg";
+
+    // Make the file
+    var imageBase64 = $scope.address;
+    var toBlob = new Blob([imageBase64], {type: 'image/jpeg'});
+
+    // Authenticate
+    firebase.auth().signInAnonymously().catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorMessage);
+      // ...
+    });
+
+    // Firebase
+    var storageRef = firebase.storage().ref();
+    var imageRef = storageRef.child('31Epqfc.jpg');
+    var uploadTask = storageRef.child('31Epqfc.jpg').put(toBlob);
+    uploadTask.on('state_changed', function(snapshot){
+    // Observe state change events such as progress, pause, and resume
+    // See below for more detail
+    }, function(error) {
+      // Handle unsuccessful uploads
+      console.log(error);
+    }, function() {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      var downloadURL = uploadTask.snapshot.downloadURL;
+      console.log(downloadURL);
+    });
+
+
   // POST request that links to PHP
-    $http.post('http://jamesonzaballos.com/upload.php', $scope.address)
+    $http.post('http://www.jamesonzaballos.com/upload.php', $scope.address)
        .then(function(res){
         console.log(res.data);
         Chats.add(res.data.cl_themes[0].id, "Hi", res.data.info.url, res.data.info.colors, res.data.kuler_themes[1].colors);
+    }, function(msg){
+      console.log(msg.data);
     });
   };
 
