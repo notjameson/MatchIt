@@ -35,10 +35,10 @@ angular.module('starter.controllers', [])
     allowEdit : false,
     encodingType: Camera.EncodingType.JPEG,
     popoverOptions: CameraPopoverOptions,
-    quality: 30, // This is to allow the fastest delivery possible
+    quality: 10, // This is to allow the fastest delivery possible, and JPEG doesn't lose colors on quality loss
   };
 
-  // Authenticate
+  // Authenticate for Backend, for now we use anonymous sign in
       firebase.auth().signInAnonymously().catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -49,13 +49,16 @@ angular.module('starter.controllers', [])
   
   // 3
   $cordovaCamera.getPicture(options).then(function(imageData) {
+
+    // prepare filename to be uploaded as array buffer
     var fileName = imageData.replace(/^.*[\\\/]/, '');
+    // make sure everything works (for testing purposes only)
     console.log(fileName);
+    // Get the correct path
     var path = cordova.file.tempDirectory;
-    console.log(path);
 
 
-
+    // THIS IS WHERE THE MAGIC HAPPENS
     $cordovaFile.readAsArrayBuffer(path, fileName)
             .then(function (success) {
               // success - get blob data
@@ -77,13 +80,12 @@ angular.module('starter.controllers', [])
               }, function (error) {
                 // Handle unsuccessful uploads, alert with error message
                 alert(error.message)
-                _callback(null)
               }, function () {
                 // Handle successful uploads on complete
                 var downloadURL = uploadTask.snapshot.downloadURL;
                 console.log(downloadURL);
                 // when done, pass back information on the saved image
-                //_callback(uploadTask.snapshot)
+                
                 $http.post('http://www.jamesonzaballos.com/upload.php', downloadURL)
                    .then(function(res){
                     console.log(res.data);
@@ -94,6 +96,7 @@ angular.module('starter.controllers', [])
               });
             }, function (error) {
               // error
+              // We will handle this differently
               console.log(error)
             });
 
@@ -102,7 +105,7 @@ angular.module('starter.controllers', [])
 
 
 
-
+    // P SURE EVERYTHING FROM THIS POINT ON IS REDUNDANT BUT WE SHALL SEE
     // 4
     onImageSuccess(imageData);
  
@@ -158,7 +161,6 @@ angular.module('starter.controllers', [])
   }
  
   $scope.urlForImage = function(imageName) {
-      console.log("get correct path for image");
       var name = imageName.substr(imageName.lastIndexOf('/') + 1);
       var trueOrigin = cordova.file.dataDirectory + name;
 

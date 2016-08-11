@@ -35,7 +35,7 @@ angular.module('starter.controllers', [])
     allowEdit : false,
     encodingType: Camera.EncodingType.JPEG,
     popoverOptions: CameraPopoverOptions,
-    quality: 30,
+    quality: 10, // This is to allow the fastest delivery possible
   };
 
   // Authenticate
