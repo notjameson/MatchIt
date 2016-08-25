@@ -201,8 +201,7 @@ angular.module('starter.controllers', [])
       // Custom popup
       var myPopup = $ionicPopup.show({
          templateUrl: 'templates/form.html',
-         title: 'Title',
-         subTitle: 'Subtitle',
+         title: 'Add new article',
          scope: $scope,
       
          buttons: [
